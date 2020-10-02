@@ -1,0 +1,175 @@
+footer {
+  padding: 0.4rem;
+}
+
+#footer-login {
+  position: absolute;
+  bottom: 0;
+}
+
+.register {
+  background-color: white;
+  padding: 20px;
+  margin: 10px;
+}
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+
+.btn {
+  margin-left: 10px;
+}
+
+.formulario {
+  margin: 5px;
+  padding: 10px;
+  width: 85%;
+}
+
+.register {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.back {
+  float: right;
+}
+
+.botones {
+  margin-top: 25px;
+}
+
+@media (max-width: 800px) {
+  .register {
+    width: 100%;
+  }
+
+  .formulario {
+    width: 100%;
+  }
+}
+.bg-background {
+  background-color: #ffa420;
+}
+
+body {
+  background-color: #212121;
+}
+
+.login {
+  width: 300px;
+  margin: auto;
+  padding-top: 40px;
+  padding-bottom: 20px;
+}
+
+.centrar {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.link {
+  color: gray;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  color: white;
+}
+
+.avatar {
+  width: 150px;
+  margin: 0 auto;
+}
+
+.centrar {
+  width: 155px;
+  margin: 0px auto;
+}
+
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid #ffa420;
+}
+
+.padd {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.adapt-img {
+  width: 100%;
+}
+
+.min {
+  min-height: 200px;
+}
+
+.img-logo {
+  width: 47%;
+}
+
+.logo {
+  padding-right: 0px;
+}
+
+@media (max-width: 700px) {
+  .login {
+    width: 100%;
+  }
+
+  .img-logo {
+    width: 165px;
+  }
+}
+.limite {
+  height: 250px;
+}
+
+.limite2 {
+  height: 410px;
+}
+
+#titulo {
+  color: #ffa420;
+}
+
+/*# sourceMappingURL=main.css.map */

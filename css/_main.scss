@@ -1,0 +1,87 @@
+$color1: #99B898;
+$color2: #FECEA8;
+$color3: #ffa420;
+$color4: #E84A5F;
+$color5: #212121;
+$colorEnlaces: white;
+
+@import "_footer";
+@import "_register";
+@import "_ingredientes";
+.bg-background{
+    background-color: $color3;
+}
+body{
+    background-color: $color5;
+}
+.login{
+    width: 300px;
+    margin: auto;
+    padding-top:40px;
+    padding-bottom: 20px;
+}
+
+.centrar{ 
+ margin-left: auto;
+  margin-right: auto;
+}
+
+.link{
+    color: gray;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+    color: $colorEnlaces ;
+}
+.avatar{
+    width: 150px;
+    margin: 0 auto;
+}
+.centrar{
+    width: 155px;
+    margin:0px auto;
+}
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid $color3;
+}
+.padd{
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+  .adapt-img{
+    width: 100%;
+}
+
+.min{
+    min-height: 200px;
+}
+.img-logo{
+    width: 47%;
+}
+.logo{
+    padding-right: 0px;
+}
+@media (max-width: 700px) {
+    .login{
+        width: 100%;
+    }
+    .img-logo{
+       width: 165px;
+    }
+}
+.limite{
+      height: 250px;
+}
+.limite2{
+      height: 410px;
+}
+
+#titulo{
+    color: $color3;
+}
