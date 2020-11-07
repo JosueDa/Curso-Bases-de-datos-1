@@ -8,6 +8,12 @@ $colorEnlaces: white;
 @import "_footer";
 @import "_register";
 @import "_ingredientes";
+
+@mixin padds($top, $bottom) {
+    padding-top: $top;
+    padding-bottom: $bottom;
+  }
+
 .bg-background{
     background-color: $color3;
 }
@@ -50,14 +56,15 @@ hr {
     border-top: 1px solid $color3;
 }
 .padd{
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    @include padds(1.5rem,3.5rem );
 }
+.padd2{
+    @include padds(1rem,1rem );
 
-  .adapt-img{
+}
+.adapt-img{
     width: 100%;
 }
-
 .min{
     min-height: 200px;
 }
@@ -82,6 +89,15 @@ hr {
       height: 410px;
 }
 
-#titulo{
+.naranja{
     color: $color3;
+}
+.adapt-table{
+    overflow-x:auto;
+}
+.esconder{
+    display: none;
+}
+.precio{
+    font-size: 25px;
 }

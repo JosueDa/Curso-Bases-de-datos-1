@@ -1,4 +1,7 @@
-    
+<?php
+ session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,51 +14,10 @@
 </head>
 <body>
   
-    <nav class="navbar navbar-expand-lg navbar-light bg-background">
-      <div class="logo">
-      <a href="#"> <img class="img-logo" src="img/logo_small.png" alt=""></a>
-    </div>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+<?php
+          include "header.php"
+            ?>
     
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Administrar
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="CRUD_ingredientes.php">Ingredientes</a>
-              <a class="dropdown-item" href="CRUD_platillos.php">Platillos</a>
-            </div>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Menú
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link " href="login.html">Log in</a>
-          </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-        </form>
-      </div>
-    </nav>
-
-
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active">
@@ -78,15 +40,53 @@
         </a>
     </div>
 
-   <div class="container padding-home padd">
-     <h1 class="display-4 font-weight-bold" id="titulo">EL MEJOR POLLO FRITO</h1>
+   <div class="container padd">
+              <?php
+                if(isset($_GET["E"])){
+                    echo '<div class="alert alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                      </button>
+                    <h4 class="alert-heading">Pedido exitoso!</h4>
+                    Su orden estará en la puerta de su casa pronto!
+                  </div>';
+                };
+                    
+                if(isset($_GET["R"])){
+                    echo '<div class="alert alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                      </button>
+                    Platillo añadido a Pedidos!
+                  </div>';
+                };
+                if(isset($_GET["C"])){
+                  echo '<div class="alert alert-success" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                  <h4 class="alert-heading">Contraseña cambiada con éxito!</h4>
+                </div>';
+              };
+              if(isset($_GET["A"])){
+                echo '<div class="alert alert-success" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+                 Cuenta actividad!
+              </div>';
+            };
+          ?>
+
+     <h1 class="display-4 font-weight-bold text-light">EL MEJOR POLLO FRITO</h1>
      <hr>
-       <h2 class="display-5 font-weight-bold text-light">Nuestros preferidos</h2>
+   
+       <h2 class="display-5 font-weight-bold naranja">Nuestros preferidos</h2>
         <div class="row">
           
           <?php
           include "php/conexion.php";
-          $stmt = $pdo->prepare('SELECT * FROM restaurante.producto limit 2');
+          $stmt = $pdo->prepare('SELECT * FROM restaurante.favoritos INNER JOIN restaurante.producto on favoritos.id_platillo=producto.id_producto where tipo ="favorito" limit 4');
           $stmt->execute();
           $resultado=$stmt->fetchAll();
           foreach($resultado as $fila):
@@ -102,52 +102,59 @@
           </div>
           <?php endforeach ?> 
         </div>
-        <div class="row padd">
-            <div class="col-lg-4 col-md-6 col-sm-12 padd">
-              <img class="adapt-img limite" src="img/restaurante/pechuga.jpg" alt="">
-              <div class="text-light">
-                  <h2>Pechuga de pollo</h2>
-                  <hr>
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex unde aut quo labore modi reprehenderit.
+        <h2 class="display-5 font-weight-bold naranja">Favorito de nuestros clientes</h2>
+        <div class="row">
+          <?php
+            $stmt2 = $pdo->prepare('SELECT restaurante.masVendido() as id');
+            $stmt2->execute();
+            $resultado2=$stmt2->fetch();
+            $y= $resultado2['id'];
+            $stmt3 = $pdo->prepare('SELECT * from restaurante.producto WHERE id_producto=:id');
+            $stmt3->execute(array(
+              ':id' =>$y
+              ));
+            $resultado3=$stmt3->fetch();
+            
+            ?>   
+          <div class="col-lg-8 col-sm-12 padd">
+                <img class="adapt-img" src='data:image/<?php echo $resultado3['tipo_imagen'];?>; base64,<?php echo base64_encode($resultado3['imagen']) ?> ' alt="">
+          </div>
+          <div class="col-lg-4 col-sm-12 padd">
+                    <div class="text-light">
+                    <h2> <?php echo $resultado3['nombre'];?></h2>
+                    <hr>
+                    <?php echo $resultado3['descripcion'];?>
+                </div>
+          </div>
+      </div>
+        <h2 class="display-5 font-weight-bold naranja">Otros deliciosos platillos</h2>
+        
+        
+        <div class="row ">
+              
+            <?php
+              include "php/conexion.php";
+              $stmt = $pdo->prepare('SELECT * FROM restaurante.favoritos INNER JOIN restaurante.producto on favoritos.id_platillo=producto.id_producto where tipo ="top" limit 12');
+              $stmt->execute();
+              $resultado=$stmt->fetchAll();
+              foreach($resultado as $fila):
+              ?>      
+              <div class="col-lg-3 col-md-6 col-sm-12 padd">
+                <img class="adapt-img limite"  src='data:image/<?php echo $fila['tipo_imagen'];?>; base64,<?php echo base64_encode($fila['imagen']) ?> ' alt="">
+                  <div class="text-light ">
+                    <h2> <?php echo $fila['nombre'];?>  </h2>
+                    <hr>
+                    <?php echo $fila['descripcion'];?>
+
+                  </div>
               </div>
-            </div>
-            <div class="col-lg-4 col-md-6  col-sm-12 padd">
-              <img class="adapt-img limite" src="img/restaurante/piernas.jpg" alt="">
-              <div class="text-light">
-                  <h2>Pierna de pollo</h2>
-                  <hr>
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex unde aut quo labore modi reprehenderit.
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-6  col-sm-12 padd">
-              <img class="adapt-img limite" src="img/restaurante/medioPollo.jpg" alt="">
-              <div class="text-light">
-                  <h2>Pierna de pollo</h2>
-                  <hr>
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex unde aut quo labore modi reprehenderit.
-              </div>
-            </div>
+              <?php endforeach ?> 
         </div>
    </div>
 
-    <footer class="container-fluid text-center bg-background footer">
-      <div class="row text-center">
-        <div class="col-md-4">
-        </div>
-        <div class="col-md-4">
-          <p>Copyright</p>
-        </div>
-        <div class="col-md-4">
-          <div>
-            <a href="#" id="share-fb" class="sharer button"><i class="fa fa-2x fa-facebook-square"></i></a>
-            <a href="#" id="share-tw" class="sharer button"><i class="fa fa-2x fa-twitter-square"></i></a>
-            <a href="#" id="share-li" class="sharer button"><i class="fa fa-2x fa-linkedin-square"></i></a>
-            <a href="#" id="share-em" class="sharer button"><i class="fa fa-2x fa-envelope-square"></i></a>
-            
-          </div>
-        </div>
-      </div>
-    </footer>
+   <?php
+          include "footer.php"
+            ?>
 
    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>

@@ -21,28 +21,20 @@
           include "header.php"
             ?>
 
-  <div >
+ 
     <div class="register">
-    
+ 
     <div class="padd2">
-    <h2 class=" float-left col-lg-6 col-md-3">Listado de productos</h2>
-      <a class="btn btn-secondary " href="agregarP.php"> Agregar producto</a>
-      <a class="btn btn-secondary " href="platillosfav.php"> Platillos favoritos</a>
-      <a class="btn btn-secondary " href="top10.php"> Top 12 </a>
-
+    <h2 class="col-lg-10 float-left">Menús</h2>
+      <a class="btn btn-secondary" href="agregarM.php"> Agregar menú</a>
     </div>
-
       <div class="adapt-table padd">
       <table class="table">
           <thead class="thead-dark">
             <tr>
               <th >Id </th>
-              <th >Nombre</th>
+              <th  >Nombre del menú</th>
               <th >Descripción</th>
-              <th >Precio</th>
-              <th >Tiempo de preparación</th>
-              <th >Tipo de imagen</th>
-              <th>imagen</th>
               <th COLSPAN="2"> Acciones</th>
               
               
@@ -54,25 +46,18 @@
               </th>
               <?php
                   include "php/conexion.php";
-                  $stmt = $pdo->prepare('SELECT * FROM restaurante.producto');
+                  $stmt = $pdo->prepare('SELECT * FROM restaurante.menu');
                   $stmt->execute();
                   $resultado=$stmt->fetchAll();
                   foreach($resultado as $fila):?>
               <tr>
-              <td><?php echo $fila['id_producto'];?></td>
+              <td><?php echo $fila['id_menu'];?></td>
               <td><?php echo $fila['nombre'];?></td>
               <td><?php echo $fila['descripcion'];?></td>
-              <td><?php echo $fila['precio'];?></td>
-              <td><?php echo $fila['tiempo_preparacion'];?></td>
-              <td><?php echo $fila['tipo_imagen'];?></td>
-              <td><img class="adapt-img limite3"  src='data:image/jpg; base64,<?php echo base64_encode($fila['imagen']) ?> ' alt=""></td>
-              <td>
-                  <a href="individual.php?idP=<?php echo $fila['id_producto']; ?>"  class="btn btn-block btn-sm btn-outline-info" >Ver</a>
-                  <a href="ingreXpro.php?id=<?php echo $fila['id_producto']; ?>" class="btn btn-block btn-sm btn-outline-success">Ingredientes</a>
-              </td>
-              <td>
-                <a href="delete.php?idP=<?php echo $fila['id_producto']; ?>" class="btn btn-block btn-sm btn-outline-danger">Delete</a>
-                <a href="updateP.php?id=<?php echo $fila['id_producto']; ?>"  class="btn btn-block btn-sm btn-outline-info" >Update</a>
+              <td><a href="proXmenu.php?id=<?php echo $fila['id_menu']; ?>" class="btn btn-block btn-sm btn-outline-success">Platillos</a></td>
+			        <td>
+                <a href="updateMenu.php?id=<?php echo $fila['id_menu']; ?>"  class="btn btn-block btn-sm btn-outline-info" >Update</a>
+                <a href="delete.php?idM=<?php echo $fila['id_menu']; ?>" class="btn btn-block btn-sm btn-outline-danger">Delete</a>
               </td>
               
             </tr>

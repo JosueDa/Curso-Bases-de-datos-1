@@ -1,7 +1,19 @@
 footer {
-    padding: 0.4rem;
+    padding: .8rem;
 }
 #footer-login{
   position: absolute;
   bottom: 0;
+}
+.border-right{
+  color: black;
+}
+.bn:hover{
+  opacity: .7;
+}
+@media (max-width: 700px) {
+
+  #footer-login{
+      position: relative;
+  }
 }

@@ -21,29 +21,21 @@
           include "header.php"
             ?>
 
+
   <div >
     <div class="register">
-    
-    <div class="padd2">
-    <h2 class=" float-left col-lg-6 col-md-3">Listado de productos</h2>
-      <a class="btn btn-secondary " href="agregarP.php"> Agregar producto</a>
-      <a class="btn btn-secondary " href="platillosfav.php"> Platillos favoritos</a>
-      <a class="btn btn-secondary " href="top10.php"> Top 12 </a>
 
-    </div>
-
-      <div class="adapt-table padd">
+      <div class="padd">
+            <h2 class="col-10 float-left">Opciones del menú</h2>
+            <a class="btn btn-secondary input" href="agregarPM.php?id=<?php echo $_GET['id']; ?>"> Agregar</a>
+      </div>
       <table class="table">
           <thead class="thead-dark">
             <tr>
-              <th >Id </th>
+              <th >Codigo producto</th>
               <th >Nombre</th>
-              <th >Descripción</th>
-              <th >Precio</th>
-              <th >Tiempo de preparación</th>
-              <th >Tipo de imagen</th>
-              <th>imagen</th>
-              <th COLSPAN="2"> Acciones</th>
+              <th width="600">Descripcion</th>
+              <th > Acciones</th>
               
               
             </tr>
@@ -54,34 +46,28 @@
               </th>
               <?php
                   include "php/conexion.php";
-                  $stmt = $pdo->prepare('SELECT * FROM restaurante.producto');
-                  $stmt->execute();
+                  $stmt = $pdo->prepare('SELECT * from restaurante.menuxproducto INNER JOIN restaurante.producto  on restaurante.menuxproducto.id_producto  = restaurante.producto.id_producto  where id_menu  =:id');
+                  $stmt->execute(array(
+                    ':id'=>$_GET['id']
+                ));
                   $resultado=$stmt->fetchAll();
                   foreach($resultado as $fila):?>
               <tr>
               <td><?php echo $fila['id_producto'];?></td>
               <td><?php echo $fila['nombre'];?></td>
               <td><?php echo $fila['descripcion'];?></td>
-              <td><?php echo $fila['precio'];?></td>
-              <td><?php echo $fila['tiempo_preparacion'];?></td>
-              <td><?php echo $fila['tipo_imagen'];?></td>
-              <td><img class="adapt-img limite3"  src='data:image/jpg; base64,<?php echo base64_encode($fila['imagen']) ?> ' alt=""></td>
-              <td>
-                  <a href="individual.php?idP=<?php echo $fila['id_producto']; ?>"  class="btn btn-block btn-sm btn-outline-info" >Ver</a>
-                  <a href="ingreXpro.php?id=<?php echo $fila['id_producto']; ?>" class="btn btn-block btn-sm btn-outline-success">Ingredientes</a>
-              </td>
-              <td>
-                <a href="delete.php?idP=<?php echo $fila['id_producto']; ?>" class="btn btn-block btn-sm btn-outline-danger">Delete</a>
-                <a href="updateP.php?id=<?php echo $fila['id_producto']; ?>"  class="btn btn-block btn-sm btn-outline-info" >Update</a>
-              </td>
+
+              <td><a href="delete.php?idPM=<?php echo $fila['id_menuXproducto'];?>&id2=<?php echo $_GET['id'];?>" class="btn btn-block btn-sm btn-outline-danger">Delete</a></td>
               
             </tr>
             <?php endforeach ?>
           </tbody>
         </table>
-        </div>
+       
     </div>
-  </div>
+    </div>
+ 
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
